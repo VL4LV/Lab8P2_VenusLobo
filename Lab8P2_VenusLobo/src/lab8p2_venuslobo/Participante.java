@@ -10,7 +10,8 @@ import java.util.ArrayList;
  *
  * @author ADMIN
  */
-public class Participante extends User{
+public class Participante extends User {
+
     private ArrayList<Torneo> torneosParticipando = new ArrayList();
     private ArrayList<Torneo> torneosGanados = new ArrayList();
 
@@ -20,7 +21,7 @@ public class Participante extends User{
     public Participante(String nombre, String contrasena) {
         super(nombre, contrasena);
     }
-    
+
     public ArrayList<Torneo> getTorneosParticipando() {
         return torneosParticipando;
     }
@@ -52,8 +53,5 @@ public class Participante extends User{
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
-    
-    
-    
-    
+
 }
