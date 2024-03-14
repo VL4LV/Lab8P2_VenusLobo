@@ -4,6 +4,8 @@
  */
 package lab8p2_venuslobo;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
@@ -54,7 +56,7 @@ public class principal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         lista_torneos = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        lista_personas = new javax.swing.JList<>();
         jButton6 = new javax.swing.JButton();
         dialogo_torneo = new javax.swing.JDialog();
         jPanel7 = new javax.swing.JPanel();
@@ -206,7 +208,7 @@ public class principal extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(lista_torneos);
 
-        jScrollPane2.setViewportView(jList2);
+        jScrollPane2.setViewportView(lista_personas);
 
         jButton6.setText("Marcar ganador");
 
@@ -669,22 +671,43 @@ public class principal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(dialogo_torneo, "Torneo creado exitosamente");
     }//GEN-LAST:event_boton_torneoMouseClicked
 
+    public void asignarGanadorTorneo(Torneo torneoSeleccionado, String nombreGanador) {
+        // Asignar el ganador al torneo
+        torneoSeleccionado.setGanador(nombreGanador);
+
+        String mensajeGanador = "El participante \"" + nombreGanador + "\" ha ganado el torneo \"" + torneoSeleccionado.getNombreTorneo() + "\"";
+
+        // Guardar la información en un archivo de texto
+        guardarInformacionGanador(mensajeGanador);
+    }
+
+    public void guardarInformacionGanador(String mensajeGanador) {
+        try {
+            FileWriter writer = new FileWriter("ganadores.txt", true); 
+            writer.write(mensajeGanador + "\n");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private void boton_cerrarTorneoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_cerrarTorneoMouseClicked
         // TODO add your handling code here:
-        // Obtener el torneo seleccionado en la lista
         int selectedIndex = lista_torneos.getSelectedIndex();
 
         if (selectedIndex != -1) { // Verificar si se ha seleccionado un torneo
-            // Obtener el torneo seleccionado de la lista
             Torneo torneoSeleccionado = listaTorneos.get(selectedIndex);
-            // Marcar el torneo como terminado
-            torneoSeleccionado.setFlagTerminar(true);
-            torneoSeleccionado.setFlagAbierto(false);
 
-            // Actualizar la lista visual de torneos
-            torneos();
+            // Verificar si el torneo ya está cerrado
+            if (torneoSeleccionado.isFlagTerminar()) {
+                JOptionPane.showMessageDialog(dialogo_torneo, "El torneo seleccionado ya está cerrado.");
+            } else {
+                torneoSeleccionado.setFlagTerminar(true);
+                torneoSeleccionado.setFlagAbierto(false);
 
-            JOptionPane.showMessageDialog(dialogo_torneo, "Torneo cerrado exitosamente");
+                torneos();
+
+                JOptionPane.showMessageDialog(dialogo_torneo, "Torneo cerrado exitosamente");
+            }
         } else {
             JOptionPane.showMessageDialog(dialogo_torneo, "Por favor, seleccione un torneo para cerrar");
         }
@@ -692,14 +715,11 @@ public class principal extends javax.swing.JFrame {
 
     private void boton_unirseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_unirseMouseClicked
         // TODO add your handling code here
-        // Obtener el torneo seleccionado en la lista de torneos disponibles
         int selectedIndex = lista_torneosDisponibles.getSelectedIndex();
 
         if (selectedIndex != -1) { // Verificar si se ha seleccionado un torneo
-            // Obtener el torneo seleccionado de la lista
             Torneo torneoSeleccionado = listaTorneos.get(selectedIndex);
 
-            // Verificar si el torneo no esta cerrado
             if (torneoSeleccionado.isFlagTerminar()) {
                 JOptionPane.showMessageDialog(dialogo_participantes, "El torneo seleccionado esta cerrado, no puedes unirte.");
             } else {
@@ -716,11 +736,17 @@ public class principal extends javax.swing.JFrame {
                 }
 
                 if (participante != null) {
-                    // Agregar el participante al ArrayList
+                    // Agregar el participante al torneo
                     torneoSeleccionado.getParticipantes().add(participante);
 
+                    // Agregar el participante a la lista de personas
+                    DefaultListModel<String> modelPersonas = (DefaultListModel<String>) lista_personas.getModel();
+                    modelPersonas.addElement(participante.getNombre());
+
                     JOptionPane.showMessageDialog(dialogo_participantes, "Te has unido al torneo exitosamente.");
-                } 
+                } else {
+                    JOptionPane.showMessageDialog(dialogo_participantes, "El participante no existe.");
+                }
             }
         } else {
             JOptionPane.showMessageDialog(dialogo_participantes, "Por favor, seleccione un torneo al que desee unirse.");
@@ -791,7 +817,6 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
@@ -807,6 +832,7 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JList<String> lista_personas;
     private javax.swing.JList<String> lista_torneos;
     private javax.swing.JList<String> lista_torneosCerrados;
     private javax.swing.JList<String> lista_torneosDisponibles;
