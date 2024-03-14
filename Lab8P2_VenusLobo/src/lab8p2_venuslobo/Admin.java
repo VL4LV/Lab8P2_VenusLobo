@@ -18,7 +18,7 @@ public class Admin extends User{
         this.numTorneos = numTorneos;
     }
 
-    public Admin(int numTorneos, String nombre, String contrasena) {
+    public Admin(String nombre, String contrasena) {
         super(nombre, contrasena);
         this.numTorneos = numTorneos;
     }

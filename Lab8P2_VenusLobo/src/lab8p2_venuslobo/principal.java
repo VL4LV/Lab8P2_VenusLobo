@@ -4,7 +4,10 @@
  */
 package lab8p2_venuslobo;
 
+import java.util.ArrayList;
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,13 +34,13 @@ public class principal extends javax.swing.JFrame {
         dialogo_crearCuenta = new javax.swing.JDialog();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
+        texto_nombreCrear = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        texto_contraCrear = new javax.swing.JTextField();
+        boton_crearCuenta = new javax.swing.JButton();
+        radio_participante = new javax.swing.JRadioButton();
+        radio_administrador = new javax.swing.JRadioButton();
         dialogo_admin = new javax.swing.JDialog();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -78,7 +81,7 @@ public class principal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        boton_registrar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         jPanel4.setBackground(new java.awt.Color(255, 51, 51));
@@ -98,11 +101,16 @@ public class principal extends javax.swing.JFrame {
 
         jLabel4.setText("Pasword");
 
-        jButton4.setText("Crear");
+        boton_crearCuenta.setText("Crear");
+        boton_crearCuenta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                boton_crearCuentaMouseClicked(evt);
+            }
+        });
 
-        jRadioButton3.setText("Participante");
+        radio_participante.setText("Participante");
 
-        jRadioButton4.setText("Administrador");
+        radio_administrador.setText("Administrador");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -115,17 +123,17 @@ public class principal extends javax.swing.JFrame {
                         .addGap(75, 75, 75)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(texto_nombreCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(texto_contraCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jRadioButton3)
+                                .addComponent(radio_participante)
                                 .addGap(85, 85, 85)
-                                .addComponent(jRadioButton4)))
+                                .addComponent(radio_administrador)))
                         .addGap(0, 190, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(29, 427, Short.MAX_VALUE)
-                        .addComponent(jButton4)
+                        .addComponent(boton_crearCuenta)
                         .addGap(36, 36, 36))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -135,17 +143,17 @@ public class principal extends javax.swing.JFrame {
                 .addGap(77, 77, 77)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(texto_nombreCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(texto_contraCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton4))
+                    .addComponent(radio_participante)
+                    .addComponent(radio_administrador))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addComponent(boton_crearCuenta)
                 .addGap(43, 43, 43))
         );
 
@@ -469,7 +477,12 @@ public class principal extends javax.swing.JFrame {
 
         jLabel2.setText("Pasword");
 
-        jButton1.setText("Registrar");
+        boton_registrar.setText("Registrar");
+        boton_registrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                boton_registrarMouseClicked(evt);
+            }
+        });
 
         jButton2.setText("Iniciar sesion");
 
@@ -490,7 +503,7 @@ public class principal extends javax.swing.JFrame {
                         .addGap(0, 247, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(jButton1)
+                        .addComponent(boton_registrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2)
                         .addGap(36, 36, 36))))
@@ -509,7 +522,7 @@ public class principal extends javax.swing.JFrame {
                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(boton_registrar)
                     .addComponent(jButton2))
                 .addGap(43, 43, 43))
         );
@@ -527,6 +540,38 @@ public class principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void boton_registrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_registrarMouseClicked
+        // TODO add your handling code here:
+        dialogo_crearCuenta.pack();
+        dialogo_crearCuenta.setVisible(true);
+    }//GEN-LAST:event_boton_registrarMouseClicked
+
+    private void boton_crearCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_crearCuentaMouseClicked
+        // TODO add your handling code here:
+        //crear un ButtonGroup para la seleccion de un radio
+        ButtonGroup buttonGroup = new ButtonGroup();
+        
+        buttonGroup.add(radio_administrador);
+        buttonGroup.add(radio_participante);
+        
+        String username = texto_nombreCrear.getText();
+        String password = texto_contraCrear.getText();
+
+        // Verificamos el radio
+        if (radio_administrador.isSelected()) {
+            Admin nuevoAdmin = new Admin(username, password);
+            administradores.add(nuevoAdmin);
+        } else if (radio_participante.isSelected()) {
+            Participante nuevoParticipante = new Participante(username, password);
+            participantes.add(nuevoParticipante);
+        }
+        
+        JOptionPane.showMessageDialog(dialogo_crearCuenta, "Cuenta creada exitosamente");
+        
+        texto_contraCrear.setText("");
+        texto_contraCrear.setText("");
+    }//GEN-LAST:event_boton_crearCuentaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -562,16 +607,18 @@ public class principal extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    ArrayList<Participante> participantes = new ArrayList();
+    ArrayList<Admin> administradores = new ArrayList();
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton boton_crearCuenta;
+    private javax.swing.JButton boton_registrar;
     private javax.swing.JDialog dialogo_admin;
     private javax.swing.JDialog dialogo_crearCuenta;
     private javax.swing.JDialog dialogo_participantes;
     private javax.swing.JDialog dialogo_torneo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -603,8 +650,6 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -612,9 +657,11 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JRadioButton radio_administrador;
+    private javax.swing.JRadioButton radio_participante;
+    private javax.swing.JTextField texto_contraCrear;
+    private javax.swing.JTextField texto_nombreCrear;
     // End of variables declaration//GEN-END:variables
 }
