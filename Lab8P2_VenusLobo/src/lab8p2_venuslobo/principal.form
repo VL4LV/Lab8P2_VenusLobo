@@ -695,9 +695,9 @@
                           <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField1" min="-2" pref="217" max="-2" attributes="0"/>
+                              <Component id="texto_user" min="-2" pref="217" max="-2" attributes="0"/>
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField3" min="-2" pref="217" max="-2" attributes="0"/>
+                              <Component id="texto_pas" min="-2" pref="217" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="247" max="32767" attributes="0"/>
                       </Group>
@@ -705,7 +705,7 @@
                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                           <Component id="boton_registrar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                          <Component id="boton_iniciar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -719,15 +719,15 @@
                   <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jTextField1" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Component id="texto_user" min="-2" pref="38" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jTextField3" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Component id="texto_pas" min="-2" pref="38" max="-2" attributes="0"/>
                   <EmptySpace pref="187" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="boton_registrar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="boton_iniciar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
               </Group>
@@ -755,7 +755,7 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="texto_user">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
@@ -767,7 +767,7 @@
             <Property name="text" type="java.lang.String" value="Pasword"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField3">
+        <Component class="javax.swing.JTextField" name="texto_pas">
         </Component>
         <Component class="javax.swing.JButton" name="boton_registrar">
           <Properties>
@@ -777,10 +777,13 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="boton_registrarMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="boton_iniciar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Iniciar sesion"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="boton_iniciarMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

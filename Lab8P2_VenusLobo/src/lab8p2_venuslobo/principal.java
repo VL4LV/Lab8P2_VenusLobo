@@ -77,12 +77,12 @@ public class principal extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        texto_user = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        texto_pas = new javax.swing.JTextField();
         boton_registrar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        boton_iniciar = new javax.swing.JButton();
 
         jPanel4.setBackground(new java.awt.Color(255, 51, 51));
 
@@ -484,7 +484,12 @@ public class principal extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Iniciar sesion");
+        boton_iniciar.setText("Iniciar sesion");
+        boton_iniciar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                boton_iniciarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -497,15 +502,15 @@ public class principal extends javax.swing.JFrame {
                         .addGap(75, 75, 75)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(texto_user, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(texto_pas, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 247, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(boton_registrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(boton_iniciar)
                         .addGap(36, 36, 36))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -515,15 +520,15 @@ public class principal extends javax.swing.JFrame {
                 .addGap(77, 77, 77)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(texto_user, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(texto_pas, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(boton_registrar)
-                    .addComponent(jButton2))
+                    .addComponent(boton_iniciar))
                 .addGap(43, 43, 43))
         );
 
@@ -551,10 +556,10 @@ public class principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         //crear un ButtonGroup para la seleccion de un radio
         ButtonGroup buttonGroup = new ButtonGroup();
-        
+
         buttonGroup.add(radio_administrador);
         buttonGroup.add(radio_participante);
-        
+
         String username = texto_nombreCrear.getText();
         String password = texto_contraCrear.getText();
 
@@ -566,12 +571,61 @@ public class principal extends javax.swing.JFrame {
             Participante nuevoParticipante = new Participante(username, password);
             participantes.add(nuevoParticipante);
         }
-        
+
         JOptionPane.showMessageDialog(dialogo_crearCuenta, "Cuenta creada exitosamente");
-        
-        texto_contraCrear.setText("");
+
+        texto_nombreCrear.setText("");
         texto_contraCrear.setText("");
     }//GEN-LAST:event_boton_crearCuentaMouseClicked
+
+    private void boton_iniciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_iniciarMouseClicked
+        // TODO add your handling code here:
+        String user = texto_user.getText();
+        String pas = texto_pas.getText();
+
+        boolean encontrado = false;
+        boolean esAdministrador = false;
+
+        // Buscar en la lista de administradores
+        for (Admin admin : administradores) {
+            if (admin.getNombre().equals(user) && admin.getContrasena().equals(pas)) {
+                encontrado = true;
+                esAdministrador = true;
+                break;
+            }
+        }
+
+        // Si no, buscar en la de participantes
+        if (!encontrado) {
+            for (Participante participante : participantes) {
+                if (participante.getNombre().equals(user) && participante.getContrasena().equals(pas)) {
+                    encontrado = true;
+                    break;
+                }
+            }
+        }
+
+        // Verificar el usuario y contrasena 
+        if (encontrado) {
+            if (esAdministrador) {
+                //administrador
+                JOptionPane.showMessageDialog(this, "Inicio de sesion exitoso como administrador");
+                dialogo_admin.pack(); 
+                dialogo_admin.setModal(true);
+                dialogo_admin.setVisible(true);
+            } else {
+                // participante
+                JOptionPane.showMessageDialog(this, "Inicio de sesion exitoso como participante");
+                dialogo_participantes.pack();
+                dialogo_participantes.setVisible(true);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos");
+        }
+
+        texto_user.setText("");
+        texto_pas.setText("");
+    }//GEN-LAST:event_boton_iniciarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -607,17 +661,17 @@ public class principal extends javax.swing.JFrame {
             }
         });
     }
-    
+
     ArrayList<Participante> participantes = new ArrayList();
     ArrayList<Admin> administradores = new ArrayList();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton boton_crearCuenta;
+    private javax.swing.JButton boton_iniciar;
     private javax.swing.JButton boton_registrar;
     private javax.swing.JDialog dialogo_admin;
     private javax.swing.JDialog dialogo_crearCuenta;
     private javax.swing.JDialog dialogo_participantes;
     private javax.swing.JDialog dialogo_torneo;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -656,12 +710,12 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JRadioButton radio_administrador;
     private javax.swing.JRadioButton radio_participante;
     private javax.swing.JTextField texto_contraCrear;
     private javax.swing.JTextField texto_nombreCrear;
+    private javax.swing.JTextField texto_pas;
+    private javax.swing.JTextField texto_user;
     // End of variables declaration//GEN-END:variables
 }
