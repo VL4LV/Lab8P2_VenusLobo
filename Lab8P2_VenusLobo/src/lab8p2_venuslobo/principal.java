@@ -6,6 +6,7 @@ package lab8p2_venuslobo;
 
 import java.util.ArrayList;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -20,6 +21,8 @@ public class principal extends javax.swing.JFrame {
      */
     public principal() {
         initComponents();
+        DefaultListModel<String> modeloListaTorneos = new DefaultListModel<>();
+        lista_torneos.setModel(modeloListaTorneos);
     }
 
     /**
@@ -46,21 +49,21 @@ public class principal extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        boton_cerrarTorneo = new javax.swing.JButton();
+        boton_crearTorneo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        lista_torneos = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
         jButton6 = new javax.swing.JButton();
         dialogo_torneo = new javax.swing.JDialog();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
-        jTextField5 = new javax.swing.JTextField();
+        texto_torneo = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
-        jSpinner1 = new javax.swing.JSpinner();
+        boton_torneo = new javax.swing.JButton();
+        spinner_rondas = new javax.swing.JSpinner();
         dialogo_participantes = new javax.swing.JDialog();
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
@@ -187,22 +190,22 @@ public class principal extends javax.swing.JFrame {
 
         jLabel6.setText("Personas deltro del torneo");
 
-        jButton3.setText("Crear torneo");
-
-        jButton5.setText("Crear torneo");
-
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        boton_cerrarTorneo.setText("Cerrar torneo");
+        boton_cerrarTorneo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                boton_cerrarTorneoMouseClicked(evt);
+            }
         });
-        jScrollPane1.setViewportView(jList1);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        boton_crearTorneo.setText("Crear torneo");
+        boton_crearTorneo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                boton_crearTorneoMouseClicked(evt);
+            }
         });
+
+        jScrollPane1.setViewportView(lista_torneos);
+
         jScrollPane2.setViewportView(jList2);
 
         jButton6.setText("Marcar ganador");
@@ -228,11 +231,11 @@ public class principal extends javax.swing.JFrame {
                         .addGap(66, 66, 66))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(jButton5)
+                        .addComponent(boton_crearTorneo)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(88, 88, 88)
-                        .addComponent(jButton3)
+                        .addComponent(boton_cerrarTorneo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton6)
                         .addGap(78, 78, 78))))
@@ -250,14 +253,14 @@ public class principal extends javax.swing.JFrame {
                         .addGap(3, 3, 3))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(jButton5)
+                        .addComponent(boton_crearTorneo)
                         .addGap(28, 28, 28)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3)
+                    .addComponent(boton_cerrarTorneo)
                     .addComponent(jButton6))
                 .addGap(31, 31, 31))
         );
@@ -290,7 +293,12 @@ public class principal extends javax.swing.JFrame {
 
         jLabel8.setText("Rondas");
 
-        jButton7.setText("Crear torneo");
+        boton_torneo.setText("Crear torneo");
+        boton_torneo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                boton_torneoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -303,13 +311,13 @@ public class principal extends javax.swing.JFrame {
                         .addGap(75, 75, 75)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel7)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                            .addComponent(texto_torneo, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
                             .addComponent(jLabel8)
-                            .addComponent(jSpinner1))
+                            .addComponent(spinner_rondas))
                         .addGap(0, 247, Short.MAX_VALUE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton7)
+                        .addComponent(boton_torneo)
                         .addGap(232, 232, 232))))
         );
         jPanel7Layout.setVerticalGroup(
@@ -319,17 +327,17 @@ public class principal extends javax.swing.JFrame {
                 .addGap(77, 77, 77)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(texto_torneo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(spinner_rondas, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 257, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton7)
+                        .addComponent(boton_torneo)
                         .addGap(57, 57, 57))))
         );
 
@@ -610,8 +618,7 @@ public class principal extends javax.swing.JFrame {
             if (esAdministrador) {
                 //administrador
                 JOptionPane.showMessageDialog(this, "Inicio de sesion exitoso como administrador");
-                dialogo_admin.pack(); 
-                dialogo_admin.setModal(true);
+                dialogo_admin.pack();
                 dialogo_admin.setVisible(true);
             } else {
                 // participante
@@ -626,6 +633,42 @@ public class principal extends javax.swing.JFrame {
         texto_user.setText("");
         texto_pas.setText("");
     }//GEN-LAST:event_boton_iniciarMouseClicked
+
+    private void boton_crearTorneoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_crearTorneoMouseClicked
+        // TODO add your handling code here:
+        dialogo_torneo.pack();
+        dialogo_torneo.setVisible(true);
+    }//GEN-LAST:event_boton_crearTorneoMouseClicked
+
+    private void boton_torneoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_torneoMouseClicked
+        // TODO add your handling code here:
+        String nombreTorneo = texto_torneo.getText();
+        int numRondas = (int) spinner_rondas.getValue();
+
+        // Crear una cadena con el nombre del torneo y el número de rondas
+        String nombreYRondas = nombreTorneo + " - Rondas: " + numRondas;
+
+        // Agregar el nombre del torneo a la lista de torneos
+        DefaultListModel<String> model = (DefaultListModel<String>) lista_torneos.getModel();
+        model.addElement(nombreYRondas);
+
+        JOptionPane.showMessageDialog(dialogo_torneo, "Torneo creado exitosamente");
+    }//GEN-LAST:event_boton_torneoMouseClicked
+
+    private void boton_cerrarTorneoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_cerrarTorneoMouseClicked
+        // TODO add your handling code here:
+        // Obtener el torneo seleccionado en la lista
+        int selectedIndex = lista_torneos.getSelectedIndex();
+
+        if (selectedIndex != -1) { // Verificar si se ha seleccionado un torneo
+            DefaultListModel<String> model = (DefaultListModel<String>) lista_torneos.getModel();
+            // Remover el torneo de la lista
+            model.remove(selectedIndex);
+            JOptionPane.showMessageDialog(dialogo_torneo, "Torneo cerrado exitosamente");
+        } else {
+            JOptionPane.showMessageDialog(dialogo_torneo, "Por favor, seleccione un torneo para cerrar");
+        }
+    }//GEN-LAST:event_boton_cerrarTorneoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -665,17 +708,17 @@ public class principal extends javax.swing.JFrame {
     ArrayList<Participante> participantes = new ArrayList();
     ArrayList<Admin> administradores = new ArrayList();
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton boton_cerrarTorneo;
     private javax.swing.JButton boton_crearCuenta;
+    private javax.swing.JButton boton_crearTorneo;
     private javax.swing.JButton boton_iniciar;
     private javax.swing.JButton boton_registrar;
+    private javax.swing.JButton boton_torneo;
     private javax.swing.JDialog dialogo_admin;
     private javax.swing.JDialog dialogo_crearCuenta;
     private javax.swing.JDialog dialogo_participantes;
     private javax.swing.JDialog dialogo_torneo;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
@@ -689,7 +732,6 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
     private javax.swing.JList<String> jList3;
     private javax.swing.JList<String> jList4;
@@ -709,13 +751,14 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JList<String> lista_torneos;
     private javax.swing.JRadioButton radio_administrador;
     private javax.swing.JRadioButton radio_participante;
+    private javax.swing.JSpinner spinner_rondas;
     private javax.swing.JTextField texto_contraCrear;
     private javax.swing.JTextField texto_nombreCrear;
     private javax.swing.JTextField texto_pas;
+    private javax.swing.JTextField texto_torneo;
     private javax.swing.JTextField texto_user;
     // End of variables declaration//GEN-END:variables
 }
