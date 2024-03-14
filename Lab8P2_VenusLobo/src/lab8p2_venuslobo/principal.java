@@ -72,11 +72,11 @@ public class principal extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jButton9 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList<>();
+        lista_torneosCerrados = new javax.swing.JList<>();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jList4 = new javax.swing.JList<>();
+        lista_torneosGanados = new javax.swing.JList<>();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jList5 = new javax.swing.JList<>();
+        lista_torneosDisponibles = new javax.swing.JList<>();
         jLabel11 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -379,26 +379,11 @@ public class principal extends javax.swing.JFrame {
 
         jButton9.setText("Unirse a torneo");
 
-        jList3.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(jList3);
+        jScrollPane3.setViewportView(lista_torneosCerrados);
 
-        jList4.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane4.setViewportView(jList4);
+        jScrollPane4.setViewportView(lista_torneosGanados);
 
-        jList5.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane5.setViewportView(jList5);
+        jScrollPane5.setViewportView(lista_torneosDisponibles);
 
         jLabel11.setText("TORNEOS GANADOS");
 
@@ -634,6 +619,28 @@ public class principal extends javax.swing.JFrame {
         texto_pas.setText("");
     }//GEN-LAST:event_boton_iniciarMouseClicked
 
+    // metodo para actualizar las listas de torneos
+    public void torneos() {
+        DefaultListModel<String> modelTorneosCerrados = new DefaultListModel<>();
+        DefaultListModel<String> modelTorneosDisponibles = new DefaultListModel<>();
+
+        // Recorrer la lista de todos los torneos
+        for (Torneo torneo : listaTorneos) {
+            String nombreTorneo = torneo.getNombreTorneo();
+            if (torneo.isFlagTerminar()) {
+                modelTorneosCerrados.addElement(nombreTorneo); // Agregar a la lista de torneos cerrados
+            } else {
+                if (torneo.isFlagAbierto()) {
+                    modelTorneosDisponibles.addElement(nombreTorneo); // Agregar a la lista de torneos disponibles
+                }
+            }
+        }
+
+        // Actualizar las listas
+        lista_torneosCerrados.setModel(modelTorneosCerrados);
+        lista_torneosDisponibles.setModel(modelTorneosDisponibles);
+    }
+
     private void boton_crearTorneoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_crearTorneoMouseClicked
         // TODO add your handling code here:
         dialogo_torneo.pack();
@@ -652,6 +659,15 @@ public class principal extends javax.swing.JFrame {
         DefaultListModel<String> model = (DefaultListModel<String>) lista_torneos.getModel();
         model.addElement(nombreYRondas);
 
+        // Crear un nuevo objeto Torneo
+        Torneo nuevoTorneo = new Torneo(nombreTorneo, true, false, null);
+
+        // Agregar el nuevo torneo a la lista de torneos
+        listaTorneos.add(nuevoTorneo);
+
+        // Actualizar la lista visual de torneos
+        torneos();
+
         JOptionPane.showMessageDialog(dialogo_torneo, "Torneo creado exitosamente");
     }//GEN-LAST:event_boton_torneoMouseClicked
 
@@ -661,9 +677,15 @@ public class principal extends javax.swing.JFrame {
         int selectedIndex = lista_torneos.getSelectedIndex();
 
         if (selectedIndex != -1) { // Verificar si se ha seleccionado un torneo
-            DefaultListModel<String> model = (DefaultListModel<String>) lista_torneos.getModel();
-            // Remover el torneo de la lista
-            model.remove(selectedIndex);
+            // Obtener el torneo seleccionado de la lista
+            Torneo torneoSeleccionado = listaTorneos.get(selectedIndex);
+            // Marcar el torneo como terminado
+            torneoSeleccionado.setFlagTerminar(true);
+            torneoSeleccionado.setFlagAbierto(false);
+
+            // Actualizar la lista visual de torneos
+            torneos();
+
             JOptionPane.showMessageDialog(dialogo_torneo, "Torneo cerrado exitosamente");
         } else {
             JOptionPane.showMessageDialog(dialogo_torneo, "Por favor, seleccione un torneo para cerrar");
@@ -707,6 +729,7 @@ public class principal extends javax.swing.JFrame {
 
     ArrayList<Participante> participantes = new ArrayList();
     ArrayList<Admin> administradores = new ArrayList();
+    ArrayList<Torneo> listaTorneos = new ArrayList<>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton boton_cerrarTorneo;
     private javax.swing.JButton boton_crearCuenta;
@@ -733,9 +756,6 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList2;
-    private javax.swing.JList<String> jList3;
-    private javax.swing.JList<String> jList4;
-    private javax.swing.JList<String> jList5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
@@ -752,6 +772,9 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JList<String> lista_torneos;
+    private javax.swing.JList<String> lista_torneosCerrados;
+    private javax.swing.JList<String> lista_torneosDisponibles;
+    private javax.swing.JList<String> lista_torneosGanados;
     private javax.swing.JRadioButton radio_administrador;
     private javax.swing.JRadioButton radio_participante;
     private javax.swing.JSpinner spinner_rondas;
