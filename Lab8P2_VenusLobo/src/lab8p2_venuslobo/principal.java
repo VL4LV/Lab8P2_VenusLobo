@@ -70,7 +70,7 @@ public class principal extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jButton9 = new javax.swing.JButton();
+        boton_unirse = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         lista_torneosCerrados = new javax.swing.JList<>();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -352,6 +352,8 @@ public class principal extends javax.swing.JFrame {
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        dialogo_participantes.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jPanel10.setBackground(new java.awt.Color(255, 51, 51));
 
         jButton8.setText("Salir");
@@ -377,7 +379,12 @@ public class principal extends javax.swing.JFrame {
 
         jLabel10.setText("TORNEOS CERRADOS");
 
-        jButton9.setText("Unirse a torneo");
+        boton_unirse.setText("Unirse a torneo");
+        boton_unirse.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                boton_unirseMouseClicked(evt);
+            }
+        });
 
         jScrollPane3.setViewportView(lista_torneosCerrados);
 
@@ -401,7 +408,7 @@ public class principal extends javax.swing.JFrame {
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(214, 214, 214)
-                        .addComponent(jButton9))
+                        .addComponent(boton_unirse))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addComponent(jLabel9)
@@ -414,7 +421,7 @@ public class principal extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createSequentialGroup()
                     .addGap(134, 134, 134)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(354, Short.MAX_VALUE)))
+                    .addContainerGap(355, Short.MAX_VALUE)))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,7 +438,7 @@ public class principal extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
-                .addComponent(jButton9)
+                .addComponent(boton_unirse)
                 .addContainerGap(37, Short.MAX_VALUE))
             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
@@ -440,16 +447,7 @@ public class principal extends javax.swing.JFrame {
                     .addGap(99, 99, 99)))
         );
 
-        javax.swing.GroupLayout dialogo_participantesLayout = new javax.swing.GroupLayout(dialogo_participantes.getContentPane());
-        dialogo_participantes.getContentPane().setLayout(dialogo_participantesLayout);
-        dialogo_participantesLayout.setHorizontalGroup(
-            dialogo_participantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        dialogo_participantesLayout.setVerticalGroup(
-            dialogo_participantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        dialogo_participantes.getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -692,6 +690,44 @@ public class principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_boton_cerrarTorneoMouseClicked
 
+    private void boton_unirseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_unirseMouseClicked
+        // TODO add your handling code here
+        // Obtener el torneo seleccionado en la lista de torneos disponibles
+        int selectedIndex = lista_torneosDisponibles.getSelectedIndex();
+
+        if (selectedIndex != -1) { // Verificar si se ha seleccionado un torneo
+            // Obtener el torneo seleccionado de la lista
+            Torneo torneoSeleccionado = listaTorneos.get(selectedIndex);
+
+            // Verificar si el torneo no esta cerrado
+            if (torneoSeleccionado.isFlagTerminar()) {
+                JOptionPane.showMessageDialog(dialogo_participantes, "El torneo seleccionado esta cerrado, no puedes unirte.");
+            } else {
+                // Obtener el nombre del participante
+                String nombreParticipante = texto_user.getText();
+
+                // Buscar el participante en la lista de participantes
+                Participante participante = null;
+                for (Participante p : participantes) {
+                    if (p.getNombre().equals(nombreParticipante)) {
+                        participante = p;
+                        break;
+                    }
+                }
+
+                if (participante != null) {
+                    // Agregar el participante al ArrayList
+                    torneoSeleccionado.getParticipantes().add(participante);
+
+                    JOptionPane.showMessageDialog(dialogo_participantes, "Te has unido al torneo exitosamente.");
+                } 
+            }
+        } else {
+            JOptionPane.showMessageDialog(dialogo_participantes, "Por favor, seleccione un torneo al que desee unirse.");
+        }
+
+    }//GEN-LAST:event_boton_unirseMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -737,13 +773,13 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JButton boton_iniciar;
     private javax.swing.JButton boton_registrar;
     private javax.swing.JButton boton_torneo;
+    private javax.swing.JButton boton_unirse;
     private javax.swing.JDialog dialogo_admin;
     private javax.swing.JDialog dialogo_crearCuenta;
     private javax.swing.JDialog dialogo_participantes;
     private javax.swing.JDialog dialogo_torneo;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
